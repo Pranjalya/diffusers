@@ -901,6 +901,7 @@ class StableDiffusionControlNetInpaintPipeline(
         # resize the mask to latents shape as we concatenate the mask to the latents
         # we do that before converting to dtype to avoid breaking in case we're using cpu_offload
         # and half precision
+        print("Height x Width", height, width)
         mask = torch.nn.functional.interpolate(
             mask, size=(height // self.vae_scale_factor, width // self.vae_scale_factor)
         )
@@ -912,6 +913,7 @@ class StableDiffusionControlNetInpaintPipeline(
             masked_image_latents = masked_image
         else:
             masked_image_latents = self._encode_vae_image(masked_image, generator=generator)
+        print("masked_image_latents: ", masked_image_latents)
 
         # duplicate mask and masked_image_latents for each generation per prompt, using mps friendly method
         if mask.shape[0] < batch_size:
