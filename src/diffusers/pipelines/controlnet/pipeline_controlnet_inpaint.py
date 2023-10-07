@@ -901,7 +901,8 @@ class StableDiffusionControlNetInpaintPipeline(
         # resize the mask to latents shape as we concatenate the mask to the latents
         # we do that before converting to dtype to avoid breaking in case we're using cpu_offload
         # and half precision
-        print("Height x Width", height, width)
+        print("Height x Width, VAE Scale Factor, Masked Image shape", height, width, self.vae_scale_factor, masked_image.shape)
+        print("Masked image", masked_image)
         mask = torch.nn.functional.interpolate(
             mask, size=(height // self.vae_scale_factor, width // self.vae_scale_factor)
         )
