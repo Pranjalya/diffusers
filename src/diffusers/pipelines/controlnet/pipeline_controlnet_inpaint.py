@@ -1204,6 +1204,7 @@ class StableDiffusionControlNetInpaintPipeline(
         # 4. Preprocess mask and image - resizes image and mask w.r.t height and width
         init_image = self.image_processor.preprocess(image, height=height, width=width)
         init_image = init_image.to(dtype=torch.float32)
+        print("Init Image", init_image.shape)
 
         mask = self.mask_processor.preprocess(mask_image, height=height, width=width)
 
